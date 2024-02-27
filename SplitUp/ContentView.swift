@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showAddItem = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationSplitView {
+            List {
+                Text("Sample Text 1")
+                Text("Sample Text 2")
+                Text("Sample Text 3")
+            }.toolbar {
+                Button {
+                    showAddItem.toggle()
+                } label: {
+                    Label("Add Item", systemImage: "plus.circle.fill")
+                }
+            }.sheet(isPresented: $showAddItem) {
+                AddItem()
+            }
+        } detail: {
+            Text("Select an item")
         }
-        .padding()
+        
     }
 }
 
